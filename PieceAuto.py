@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 class Vidange : 
     def __init__(self,search="roulement",page="1"):
+        self.search=f"{search}"
         self.url=lambda page: f"https://www.piecesautos.tn/recherche/{search}?page={page}"
         self.link=self.url(page)
         self.headers = {
@@ -27,11 +28,12 @@ class Vidange :
         return pages_list
     def search_product(self):
     # Initialize an empty DataFrame
+        print("Searching for products in Piece Auto site Please wait...")
+
         df = pd.DataFrame(columns=['product_name', 'product_price', 'product_link'])
         
         # Iterate through all search links
         for link in self.search_links:
-            print(f"Fetching data from: {link}")
             self.response = SendRequest.SendRequest(link, self.headers).send_request()
             self.soup = BeautifulSoup(self.response.text, 'html.parser')
             
@@ -64,7 +66,7 @@ class Vidange :
         }
         
         # Print the minimum price product
-        print("Product with the minimum price:")
+        print(f"Product :  {self.search} with the minimum price in Piece Auto:")
         print(self.min_price_product)
         return df
 
