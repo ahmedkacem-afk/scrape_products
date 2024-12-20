@@ -40,7 +40,7 @@ class Vidange :
         min_price_row = df.loc[df['product_price'].idxmin()]
         self.min_price_product = {
             'product_name': min_price_row['product_name'],
-            'product_price': min_price_row['product_price'],
+            'product_price': f"{min_price_row['product_price']} TND",
             'product_link': min_price_row['product_link']
         }
         
